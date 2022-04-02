@@ -1,7 +1,7 @@
 import {useEffect,useState} from "react"
 import axios from "axios"
 export default function Currency_Card(){
-	const [currency_pairs,setcurrency]=useState([])
+  const [currency_pairs,setcurrency]=useState([])
   const [currency1,setcurrency1]=useState("")
   const [currency2,setcurrency2]=useState("")
 	let new_array=[...currency_pairs]
@@ -35,46 +35,45 @@ export default function Currency_Card(){
   }
 	useEffect(()=>{
 		axios.get("https://blockchain.info/ticker")
-						.then((data)=>{
-							  for (const [key, value] of Object.entries(data.data)) {
-                  new_array.push(key);
-  								
-  							}
-  							setcurrency(new_array)
-						})
+			.then((data)=>{
+				for (const [key, value] of Object.entries(data.data)) {
+                  			new_array.push(key);
+  				}
+  				setcurrency(new_array)
+		})
 	},[])
 	return( 
-  <div className="container-outer">
-  	<div className="container">
-        <div className="currency">
-          <select id="currency-one">
-            
-          	{currency_pairs.length>0?
-          		currency_pairs.map((item,index)=>{
-          			return <option onClick={currency1_function}>{item}</option>
-          		})
-          		:<option>"error"</option>}
-          </select>
-          <input onChange={calculate}  id="amount-one" placeholder="0"  />
-        </div>
+  	<div className="container-outer">
+		<div className="container">
+			<div className="currency">
+			  <select id="currency-one">
 
-         <div className="swap-rate-container">
-          
-          <div className="rate" id="rate"></div>
-        </div>
+				{currency_pairs.length>0?
+					currency_pairs.map((item,index)=>{
+						return <option onClick={currency1_function}>{item}</option>
+					})
+					:<option>"error"</option>}
+			  </select>
+			  <input onChange={calculate}  id="amount-one" placeholder="0"  />
+			</div>
 
-        <div className="currency">
-          <select id="currency-two">
-            
-            {currency_pairs.length>0?
-              currency_pairs.map((item,index)=>{
-                return <option onClick={currency2_function}>{item}</option>
-              })
-              :<option>"error"</option>}
-          </select>
-          <input onChange={calculate}  id="amount-two" placeholder="0" />
-        </div>
-      </div>
+			 <div className="swap-rate-container">
+
+			  <div className="rate" id="rate"></div>
+			</div>
+
+			<div className="currency">
+			  <select id="currency-two">
+
+			    {currency_pairs.length>0?
+			      currency_pairs.map((item,index)=>{
+				return <option onClick={currency2_function}>{item}</option>
+			      })
+			      :<option>"error"</option>}
+			  </select>
+			  <input onChange={calculate}  id="amount-two" placeholder="0" />
+			</div>
+	      </div>
     </div>
 	)
 }
